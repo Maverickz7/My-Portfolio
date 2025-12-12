@@ -1,0 +1,337 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { CASE_STUDIES } from '../constants';
+import { ArrowUpRight, X, ChevronLeft, ChevronRight, ImageIcon, Maximize2, Minimize2, Loader2 } from 'lucide-react';
+import { CaseStudy } from '../types';
+
+const CaseStudyCard: React.FC<{ study: CaseStudy; onClick: () => void; index: number }> = ({ study, onClick, index }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+        cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    return (
+        <div
+            ref={cardRef}
+            onClick={onClick}
+            onMouseMove={handleMouseMove}
+            className="spotlight-card group relative h-[400px] md:h-[500px] bg-white dark:bg-[#0a0a0a] border border-black/5 dark:border-white/5 rounded-2xl cursor-pointer overflow-hidden transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-purple-500/20 dark:hover:shadow-purple-900/30 z-10"
+        >
+            {/* Image Placeholder / Abstract Gradient */}
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-5 dark:opacity-20 transition-opacity duration-700 group-hover:opacity-10 dark:group-hover:opacity-40
+                ${index % 3 === 0 ? 'from-purple-600 to-transparent dark:from-purple-900 dark:to-black' : ''}
+                ${index % 3 === 1 ? 'from-blue-600 to-transparent dark:from-blue-900 dark:to-black' : ''}
+                ${index % 3 === 2 ? 'from-indigo-600 to-transparent dark:from-indigo-900 dark:to-black' : ''}
+            `}></div>
+
+            {/* Optional Background Image Hint if available */}
+            {study.images && study.images.length > 0 && (
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-cover bg-center grayscale group-hover:grayscale-0" style={{ backgroundImage: `url(${study.images[0]})` }}></div>
+            )}
+
+            <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-10">
+                <div className="flex justify-between items-start">
+                    <span className="font-mono text-sm text-gray-400 dark:text-gray-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">0{index + 1}</span>
+                    <div className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm group-hover:border-purple-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <ArrowUpRight className="text-gray-900 dark:text-white w-5 h-5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors" />
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 group-hover:translate-x-2 transition-transform duration-300 drop-shadow-md">
+                        {study.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base max-w-md group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">
+                        {study.summary}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-6">
+                        {study.tags.slice(0, 3).map(tag => (
+                            <span key={tag} className="text-[10px] uppercase tracking-widest px-2 py-1 border border-black/5 dark:border-white/10 text-gray-500 dark:text-gray-500 bg-black/5 dark:bg-black/20 group-hover:border-purple-500/30 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors backdrop-blur-md">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const ImageGallery: React.FC<{ images: string[] }> = ({ images }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
+    
+    // Swipe state
+    const touchStartX = useRef<number | null>(null);
+    const touchEndX = useRef<number | null>(null);
+
+    const nextImage = () => {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = () => {
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
+
+    const handleImageLoad = (index: number) => {
+        setLoadedImages((prev) => ({ ...prev, [index]: true }));
+    };
+
+    // Keyboard & Swipe logic
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'Escape' && isFullscreen) setIsFullscreen(false);
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isFullscreen]);
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStartX.current || !touchEndX.current) return;
+        const distance = touchStartX.current - touchEndX.current;
+        const isLeftSwipe = distance > 50;
+        const isRightSwipe = distance < -50;
+
+        if (isLeftSwipe) nextImage();
+        if (isRightSwipe) prevImage();
+
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
+
+    return (
+        <div className={`select-none transition-all duration-500 ${isFullscreen ? 'fixed inset-0 z-[150] bg-black p-0' : 'mb-12 relative'}`}>
+            {/* Close Fullscreen Button */}
+            {isFullscreen && (
+                <button 
+                    onClick={() => setIsFullscreen(false)}
+                    className="absolute top-6 right-6 p-3 rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-white/20 z-[160] transition-colors"
+                >
+                    <Minimize2 size={24} />
+                </button>
+            )}
+
+            {/* Main Viewer */}
+            <div 
+                className={`relative w-full overflow-hidden bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 group shadow-2xl ${isFullscreen ? 'h-full border-none rounded-none' : 'aspect-video rounded-xl'}`}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
+                {images.map((img, idx) => (
+                    <div 
+                        key={idx}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                            idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                        }`}
+                    >
+                         {/* Loading Placeholder */}
+                         <div className={`absolute inset-0 flex items-center justify-center bg-gray-50 dark:bg-zinc-900 transition-opacity duration-500 ${loadedImages[idx] ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                            <Loader2 className="w-8 h-8 text-purple-600 animate-spin" />
+                         </div>
+
+                         <img 
+                            src={img} 
+                            alt={`Gallery ${idx + 1}`} 
+                            loading="lazy"
+                            onLoad={() => handleImageLoad(idx)}
+                            style={{ transition: 'transform 10s linear, opacity 0.5s ease-in-out' }}
+                            className={`w-full h-full object-cover ${idx === currentIndex ? 'scale-110' : 'scale-100'} ${loadedImages[idx] ? 'opacity-100' : 'opacity-0'}`} 
+                        />
+                         {/* Vignette */}
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+                    </div>
+                ))}
+
+                {/* Fullscreen Toggle (only in non-fullscreen) */}
+                {!isFullscreen && (
+                    <button 
+                        onClick={() => setIsFullscreen(true)}
+                        className="absolute top-4 right-4 p-2 rounded-full bg-black/30 backdrop-blur-md text-white hover:bg-white/20 transition-all z-20 opacity-0 group-hover:opacity-100"
+                    >
+                        <Maximize2 size={18} />
+                    </button>
+                )}
+
+                {/* Controls */}
+                <button 
+                    onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 dark:bg-black/40 backdrop-blur-md text-white border border-white/10 hover:bg-white/30 hover:scale-110 transition-all z-20 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0"
+                >
+                    <ChevronLeft size={24} />
+                </button>
+                <button 
+                    onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 dark:bg-black/40 backdrop-blur-md text-white border border-white/10 hover:bg-white/30 hover:scale-110 transition-all z-20 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
+                >
+                    <ChevronRight size={24} />
+                </button>
+                
+                {/* Caption / Counter */}
+                <div className={`absolute bottom-0 left-0 right-0 p-6 flex justify-between items-end z-20 bg-gradient-to-t from-black/80 to-transparent ${isFullscreen ? 'pb-12 px-12' : ''}`}>
+                     <div className="text-white">
+                        <p className="text-xs uppercase tracking-widest opacity-70 mb-1">Project Asset</p>
+                        <p className="text-sm font-medium">Image {currentIndex + 1} of {images.length}</p>
+                     </div>
+                </div>
+            </div>
+
+            {/* Thumbnails (Hidden in Fullscreen for cleaner view) */}
+            {!isFullscreen && (
+                <div className="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide justify-center px-4">
+                    {images.map((img, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentIndex(idx)}
+                            className={`relative w-24 h-16 flex-shrink-0 rounded-lg overflow-hidden transition-all duration-300 border-2 ${
+                                idx === currentIndex 
+                                    ? 'border-purple-600 dark:border-purple-400 opacity-100 ring-2 ring-purple-500/30 translate-y-0' 
+                                    : 'border-transparent opacity-40 hover:opacity-80 hover:-translate-y-1'
+                            }`}
+                        >
+                            <img src={img} alt={`Thumb ${idx + 1}`} loading="lazy" className="w-full h-full object-cover" />
+                            {idx === currentIndex && <div className="absolute inset-0 bg-purple-500/10 mix-blend-overlay"></div>}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+
+const CaseStudies: React.FC = () => {
+  const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selectedStudy) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'unset';
+    }
+    return () => {
+        document.body.style.overflow = 'unset';
+    };
+  }, [selectedStudy]);
+
+  // Handle escape key for modal
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setSelectedStudy(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  return (
+    <section id="projects" className="py-32 scroll-mt-20">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <h2 className="text-5xl md:text-9xl font-bold text-gray-900 dark:text-white tracking-tighter mb-24 opacity-90 text-center md:text-left">
+            SELECTED<br/>WORKS
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {CASE_STUDIES.map((study, index) => (
+            <CaseStudyCard 
+                key={study.id} 
+                study={study} 
+                index={index} 
+                onClick={() => setSelectedStudy(study)} 
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Modal */}
+      {selectedStudy && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+            <div 
+                className="absolute inset-0 bg-white/80 dark:bg-black/95 backdrop-blur-xl animate-fade-in-up" 
+                onClick={() => setSelectedStudy(null)} 
+            />
+            
+            <div className="relative w-full max-w-4xl bg-white dark:bg-[#050505] border border-black/10 dark:border-white/10 max-h-[90vh] overflow-y-auto shadow-2xl shadow-purple-900/10 animate-fade-in-up rounded-2xl scrollbar-hide">
+                <button 
+                    onClick={() => setSelectedStudy(null)}
+                    className="absolute top-6 right-6 p-2 rounded-full bg-black/5 dark:bg-white/5 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/10 dark:hover:bg-white/10 transition-all z-30"
+                >
+                    <X size={24} />
+                </button>
+
+                <div className="p-8 md:p-16">
+                    <span className="text-purple-600 dark:text-purple-500 text-xs font-mono tracking-widest uppercase mb-4 block">Case Study</span>
+                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">{selectedStudy.title}</h2>
+                    
+                    {/* Image Gallery Feature */}
+                    {selectedStudy.images && selectedStudy.images.length > 0 ? (
+                        <ImageGallery images={selectedStudy.images} />
+                    ) : (
+                        <div className="w-full h-48 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center mb-12 border border-black/5 dark:border-white/5 border-dashed">
+                             <div className="flex flex-col items-center gap-2 text-gray-400">
+                                <ImageIcon size={32} />
+                                <span className="text-xs tracking-widest uppercase">No visual assets available</span>
+                             </div>
+                        </div>
+                    )}
+
+                    <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-12 font-light">{selectedStudy.summary}</p>
+
+                    <div className="grid md:grid-cols-2 gap-12 text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+                        <div className="space-y-8">
+                            <div>
+                                <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <span className="w-1 h-4 bg-purple-600 dark:bg-purple-500 block"></span>
+                                    Challenge
+                                </h4>
+                                <p className="text-gray-600 dark:text-gray-400">{selectedStudy.problem}</p>
+                            </div>
+                            
+                            <div>
+                                <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <span className="w-1 h-4 bg-purple-600 dark:bg-purple-500 block"></span>
+                                    Approach
+                                </h4>
+                                <p className="text-gray-600 dark:text-gray-400">{selectedStudy.approach}</p>
+                            </div>
+                        </div>
+                        
+                        <div className="bg-gray-50 dark:bg-white/5 p-8 border border-black/5 dark:border-white/10 rounded-xl relative overflow-hidden group">
+                             <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+                             <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-4 relative z-10">Outcome</h4>
+                             <p className="text-gray-900 dark:text-white text-lg md:text-xl font-medium relative z-10">{selectedStudy.outcome}</p>
+                        </div>
+                    </div>
+                    
+                    <div className="mt-12 pt-8 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-3">
+                        {selectedStudy.tags.map(tag => (
+                            <span key={tag} className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-xs text-gray-500 dark:text-gray-400">
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+      )}
+    </section>
+  );
+};
+
+export default CaseStudies;
