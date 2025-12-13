@@ -2,7 +2,8 @@ import { ExperienceItem, SkillItem, CaseStudy, DashboardItem } from './types';
 
 export const SOCIAL_LINKS = {
   email: "devanshkumar04@gmail.com", 
-  linkedin: "https://www.linkedin.com/in/devansh-kumar-01335619b/" 
+  linkedin: "https://www.linkedin.com/in/devansh-kumar-01335619b/",
+  phone: "+91-9769243440"
 };
 
 export const HERO_CONTENT = {

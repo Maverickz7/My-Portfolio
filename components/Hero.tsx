@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
         {/* Name */}
         <h1 className="text-4xl sm:text-6xl md:text-9xl font-bold tracking-tighter text-gray-900 dark:text-white mb-6 leading-none opacity-0 animate-fade-in-up mix-blend-multiply dark:mix-blend-lighten transition-colors" style={{ animationDelay: '0.4s' }}>
             DEVANSH<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-gray-900 to-gray-500 dark:from-white dark:to-white/40">KUMAR</span>
+            <span className="text-purple-600 dark:text-purple-500">KUMAR</span>
         </h1>
         
         {/* Role */}

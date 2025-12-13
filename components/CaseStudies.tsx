@@ -257,9 +257,12 @@ const CaseStudies: React.FC = () => {
   return (
     <section id="projects" className="py-32 scroll-mt-20">
       <div className="max-w-[1400px] mx-auto px-6">
-        <h2 className="text-5xl md:text-9xl font-bold text-gray-900 dark:text-white tracking-tighter mb-24 opacity-90 text-center md:text-left">
-            SELECTED<br/>WORKS
-        </h2>
+        <div className="mb-24 text-center md:text-left">
+            <h2 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white tracking-tighter mb-6 transition-colors">
+                SELECTED <span className="text-purple-600 dark:text-purple-500">WORKS</span>.
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-cyan-600 mx-auto md:mx-0"></div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {CASE_STUDIES.map((study, index) => (

@@ -5,9 +5,12 @@ const Experience: React.FC = () => {
   return (
     <section id="experience" className="py-32 scroll-mt-20 bg-gray-50 dark:bg-[#020204] transition-colors duration-500">
       <div className="max-w-[1000px] mx-auto px-6">
-        <h2 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-20 tracking-tighter text-right transition-colors">
-            Timeline.
-        </h2>
+        <div className="mb-20 text-center md:text-left">
+            <h2 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white tracking-tighter mb-6 transition-colors">
+                Time<span className="text-purple-600 dark:text-purple-500">line</span>.
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-cyan-600 mx-auto md:mx-0"></div>
+        </div>
 
         <div className="relative border-l border-gray-300 dark:border-white/10 ml-4 md:ml-0 space-y-16">
           {EXPERIENCES.map((exp, index) => {
