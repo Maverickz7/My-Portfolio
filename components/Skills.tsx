@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SKILLS, TOOLS } from '../constants';
 import * as Icons from 'lucide-react';
 
@@ -6,15 +6,20 @@ const getToolData = (toolString: string) => {
   const name = toolString.split('(')[0].trim();
   let level = 3; // 1-5 scale
   const lower = toolString.toLowerCase();
+  
+  // Refined logic for better variety in the demo
   if (lower.includes('advanced')) level = 5;
   else if (lower.includes('expert')) level = 5;
+  else if (lower.includes('basic')) level = 2;
   else if (['Tableau', 'Figma', 'Notion', 'Google Analytics'].includes(name)) level = 4;
   else if (name.includes('Miro')) level = 4;
+  else if (name.includes('Python')) level = 2; // Basic per constants
   
   // Map numeric level to text label
   let label = "Intermediate";
   if (level === 5) label = "Expert";
   if (level === 4) label = "Advanced";
+  if (level <= 2) label = "Beginner";
   
   return { name, level, label };
 };
@@ -38,6 +43,7 @@ const ToolCard: React.FC<{ toolString: string }> = ({ toolString }) => {
   const Icon = getToolIcon(name);
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [animatedValue, setAnimatedValue] = useState(0);
   
   const percentage = level * 20; // Convert 1-5 scale to percentage
 
@@ -49,6 +55,36 @@ const ToolCard: React.FC<{ toolString: string }> = ({ toolString }) => {
     cardRef.current.style.setProperty('--mouse-x', `${x}px`);
     cardRef.current.style.setProperty('--mouse-y', `${y}px`);
   };
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    let reqId: number;
+    
+    const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / 1500, 1); // 1.5s duration matches the bar
+        // Exponential ease out for the number counter
+        const ease = 1 === progress ? 1 : 1 - Math.pow(2, -10 * progress);
+        
+        if (hovered) {
+            setAnimatedValue(Math.floor(ease * percentage));
+        } else {
+            setAnimatedValue(0); 
+        }
+
+        if (progress < 1 && hovered) {
+            reqId = window.requestAnimationFrame(step);
+        }
+    };
+
+    if (hovered) {
+        reqId = window.requestAnimationFrame(step);
+    } else {
+        setAnimatedValue(0);
+    }
+    
+    return () => window.cancelAnimationFrame(reqId);
+  }, [hovered, percentage]);
 
   return (
     <div 
@@ -72,21 +108,41 @@ const ToolCard: React.FC<{ toolString: string }> = ({ toolString }) => {
                 </div>
                 <span className={`text-sm font-medium transition-colors duration-300 ${hovered ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}>{name}</span>
             </div>
-            <span className={`text-xs font-mono transition-colors duration-300 ${hovered ? 'text-purple-600 dark:text-purple-400 font-bold drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' : 'text-gray-400 dark:text-gray-600'}`}>
-                {label}
-            </span>
+            
+            {/* Right side container - Fixed height for alignment */}
+            <div className="relative flex flex-col items-end h-5 justify-center">
+                 {/* Label - Exits Up */}
+                <span className={`absolute right-0 text-[10px] uppercase tracking-widest font-mono transition-all duration-300 ease-out
+                    ${hovered ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'} 
+                    text-gray-400 dark:text-gray-600`}
+                >
+                    {label}
+                </span>
+
+                 {/* Numerical Indicator - Enters from Down */}
+                <div className={`absolute right-0 flex items-center justify-end transition-all duration-300 ease-out
+                    ${hovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+                >
+                     <span className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-purple-400 dark:to-cyan-300 leading-none tracking-tighter filter drop-shadow-sm">
+                        {animatedValue}<span className="text-xs align-top opacity-50 ml-0.5">%</span>
+                     </span>
+                </div>
+            </div>
           </div>
 
           {/* Continuous Progress Bar Container */}
-          <div className="w-full h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden mt-2">
+          <div className="w-full h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden mt-2 relative">
             {/* Animated Bar with Liquid Liquid Effect */}
             <div 
-                className="h-full rounded-full bg-gradient-to-r from-purple-600 to-cyan-400 shadow-[0_0_10px_rgba(168,85,247,0.5)] transition-all duration-[1500ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+                className="h-full rounded-full bg-gradient-to-r from-purple-600 to-cyan-400 shadow-[0_0_10px_rgba(168,85,247,0.5)] transition-all duration-[1500ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] relative overflow-hidden"
                 style={{ 
                     width: hovered ? `${percentage}%` : '0%',
                     opacity: hovered ? 1 : 0.5
                 }}
-            />
+            >
+                {/* Internal Shimmer */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full -translate-x-full animate-[shimmer_2s_infinite]"></div>
+            </div>
           </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CASE_STUDIES } from '../constants';
-import { ArrowUpRight, X, ChevronLeft, ChevronRight, ImageIcon, Maximize2, Minimize2, Loader2 } from 'lucide-react';
+import { ArrowUpRight, X, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight, ImageIcon, Maximize2, Minimize2, Loader2 } from 'lucide-react';
 import { CaseStudy } from '../types';
 
 const CaseStudyCard: React.FC<{ study: CaseStudy; onClick: () => void; index: number }> = ({ study, onClick, index }) => {
@@ -86,6 +86,9 @@ const ImageGallery: React.FC<{ images: string[] }> = ({ images }) => {
     // Keyboard & Swipe logic
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
+            // Only handle keys if NOT combined with modifiers (to avoid conflict with Project Navigation)
+            if (e.altKey || e.ctrlKey || e.metaKey) return;
+
             if (e.key === 'ArrowRight') nextImage();
             if (e.key === 'ArrowLeft') prevImage();
             if (e.key === 'Escape' && isFullscreen) setIsFullscreen(false);
@@ -218,27 +221,38 @@ const ImageGallery: React.FC<{ images: string[] }> = ({ images }) => {
 
 const CaseStudies: React.FC = () => {
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Lock body scroll when modal is open
+  // Derive navigation
+  const currentIndex = selectedStudy ? CASE_STUDIES.findIndex(s => s.id === selectedStudy.id) : -1;
+  const prevStudy = currentIndex > 0 ? CASE_STUDIES[currentIndex - 1] : null;
+  const nextStudy = currentIndex >= 0 && currentIndex < CASE_STUDIES.length - 1 ? CASE_STUDIES[currentIndex + 1] : null;
+
+  const navigateTo = (study: CaseStudy) => {
+    setSelectedStudy(study);
+  };
+
+  // Reset scroll on study change
   useEffect(() => {
-    if (selectedStudy) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'unset';
+    if (scrollRef.current) {
+        scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    return () => {
-        document.body.style.overflow = 'unset';
-    };
   }, [selectedStudy]);
 
-  // Handle escape key for modal
+  // Handle escape key and Project Navigation shortcuts
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') setSelectedStudy(null);
+        
+        // Alt + Arrows for project navigation
+        if (e.altKey) {
+            if (e.key === 'ArrowLeft' && prevStudy) navigateTo(prevStudy);
+            if (e.key === 'ArrowRight' && nextStudy) navigateTo(nextStudy);
+        }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [prevStudy, nextStudy]);
 
   return (
     <section id="projects" className="py-32 scroll-mt-20">
@@ -261,46 +275,93 @@ const CaseStudies: React.FC = () => {
 
       {/* Modal */}
       {selectedStudy && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 animate-fade-in-up">
             <div 
-                className="absolute inset-0 bg-white/80 dark:bg-black/95 backdrop-blur-xl animate-fade-in-up" 
+                className="absolute inset-0 bg-white/90 dark:bg-black/95 backdrop-blur-xl" 
                 onClick={() => setSelectedStudy(null)} 
             />
             
-            <div className="relative w-full max-w-4xl bg-white dark:bg-[#050505] border border-black/10 dark:border-white/10 max-h-[90vh] overflow-y-auto shadow-2xl shadow-purple-900/10 animate-fade-in-up rounded-2xl scrollbar-hide">
+            {/* Fixed Project Navigation Arrows (Desktop) */}
+            {prevStudy && (
                 <button 
-                    onClick={() => setSelectedStudy(null)}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-black/5 dark:bg-white/5 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/10 dark:hover:bg-white/10 transition-all z-30"
+                    onClick={(e) => { e.stopPropagation(); navigateTo(prevStudy); }}
+                    className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[110] p-4 rounded-full bg-white/10 dark:bg-black/20 hover:bg-purple-500/20 border border-black/10 dark:border-white/10 backdrop-blur-md text-gray-900 dark:text-white transition-all hover:scale-110 group"
+                    aria-label="Previous Project"
                 >
-                    <X size={24} />
+                    <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+                    <span className="absolute left-full ml-4 top-1/2 -translate-y-1/2 bg-black dark:bg-white text-white dark:text-black text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {prevStudy.title}
+                    </span>
                 </button>
+            )}
+            {nextStudy && (
+                <button 
+                    onClick={(e) => { e.stopPropagation(); navigateTo(nextStudy); }}
+                    className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[110] p-4 rounded-full bg-white/10 dark:bg-black/20 hover:bg-purple-500/20 border border-black/10 dark:border-white/10 backdrop-blur-md text-gray-900 dark:text-white transition-all hover:scale-110 group"
+                    aria-label="Next Project"
+                >
+                    <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
+                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-black dark:bg-white text-white dark:text-black text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {nextStudy.title}
+                    </span>
+                </button>
+            )}
 
-                <div className="p-8 md:p-16">
-                    <span className="text-purple-600 dark:text-purple-500 text-xs font-mono tracking-widest uppercase mb-4 block">Case Study</span>
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">{selectedStudy.title}</h2>
+            <div className="relative w-full max-w-5xl h-full md:h-auto md:max-h-[90vh] flex flex-col bg-white dark:bg-[#050505] md:border border-black/10 dark:border-white/10 md:rounded-2xl shadow-2xl shadow-purple-900/10 overflow-hidden">
+                
+                {/* Sticky Header */}
+                <div className="flex-shrink-0 h-16 border-b border-black/5 dark:border-white/5 flex items-center justify-between px-6 bg-white/80 dark:bg-[#050505]/80 backdrop-blur-md z-20">
+                    <span className="text-purple-600 dark:text-purple-500 text-xs font-mono tracking-widest uppercase truncate max-w-[200px] md:max-w-none">
+                        {currentIndex + 1} / {CASE_STUDIES.length} — {selectedStudy.title}
+                    </span>
+                    <button 
+                        onClick={() => setSelectedStudy(null)}
+                        className="p-2 rounded-full bg-black/5 dark:bg-white/5 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/10 dark:hover:bg-white/10 transition-all"
+                    >
+                        <X size={20} />
+                    </button>
+                </div>
+
+                {/* Scrollable Content */}
+                <div ref={scrollRef} className="flex-grow overflow-y-auto scrollbar-hide p-6 md:p-12">
                     
-                    {/* Image Gallery Feature */}
-                    {selectedStudy.images && selectedStudy.images.length > 0 ? (
-                        <ImageGallery images={selectedStudy.images} />
-                    ) : (
-                        <div className="w-full h-48 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center mb-12 border border-black/5 dark:border-white/5 border-dashed">
-                             <div className="flex flex-col items-center gap-2 text-gray-400">
-                                <ImageIcon size={32} />
-                                <span className="text-xs tracking-widest uppercase">No visual assets available</span>
-                             </div>
+                    {/* Header Section */}
+                    <div className="max-w-3xl mx-auto mb-12">
+                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">{selectedStudy.title}</h2>
+                        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 font-light leading-relaxed">{selectedStudy.summary}</p>
+                        
+                        <div className="mt-8 flex flex-wrap gap-2">
+                            {selectedStudy.tags.map(tag => (
+                                <span key={tag} className="px-3 py-1 bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-500/20 rounded-full text-xs font-medium text-purple-700 dark:text-purple-300">
+                                    {tag}
+                                </span>
+                            ))}
                         </div>
-                    )}
+                    </div>
 
-                    <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-12 font-light">{selectedStudy.summary}</p>
+                    {/* Gallery */}
+                    <div className="mb-16 -mx-6 md:-mx-12 lg:mx-0">
+                         {selectedStudy.images && selectedStudy.images.length > 0 ? (
+                            <ImageGallery images={selectedStudy.images} />
+                        ) : (
+                            <div className="w-full h-48 bg-black/5 dark:bg-white/5 flex items-center justify-center border-y border-black/5 dark:border-white/5 border-dashed">
+                                 <div className="flex flex-col items-center gap-2 text-gray-400">
+                                    <ImageIcon size={32} />
+                                    <span className="text-xs tracking-widest uppercase">No visual assets available</span>
+                                 </div>
+                            </div>
+                        )}
+                    </div>
 
-                    <div className="grid md:grid-cols-2 gap-12 text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+                    {/* Detailed Content */}
+                    <div className="max-w-3xl mx-auto grid gap-12 text-gray-600 dark:text-gray-300 leading-relaxed font-light">
                         <div className="space-y-8">
                             <div>
                                 <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                                     <span className="w-1 h-4 bg-purple-600 dark:bg-purple-500 block"></span>
                                     Challenge
                                 </h4>
-                                <p className="text-gray-600 dark:text-gray-400">{selectedStudy.problem}</p>
+                                <p className="text-gray-600 dark:text-gray-400 text-lg">{selectedStudy.problem}</p>
                             </div>
                             
                             <div>
@@ -308,23 +369,49 @@ const CaseStudies: React.FC = () => {
                                     <span className="w-1 h-4 bg-purple-600 dark:bg-purple-500 block"></span>
                                     Approach
                                 </h4>
-                                <p className="text-gray-600 dark:text-gray-400">{selectedStudy.approach}</p>
+                                <p className="text-gray-600 dark:text-gray-400 text-lg">{selectedStudy.approach}</p>
                             </div>
                         </div>
                         
-                        <div className="bg-gray-50 dark:bg-white/5 p-8 border border-black/5 dark:border-white/10 rounded-xl relative overflow-hidden group">
-                             <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+                        <div className="bg-gray-50 dark:bg-white/5 p-8 border border-black/5 dark:border-white/10 rounded-2xl relative overflow-hidden group">
+                             <div className="absolute top-0 right-0 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-all duration-700"></div>
                              <h4 className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-4 relative z-10">Outcome</h4>
-                             <p className="text-gray-900 dark:text-white text-lg md:text-xl font-medium relative z-10">{selectedStudy.outcome}</p>
+                             <p className="text-gray-900 dark:text-white text-xl md:text-2xl font-medium relative z-10">{selectedStudy.outcome}</p>
                         </div>
                     </div>
-                    
-                    <div className="mt-12 pt-8 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-3">
-                        {selectedStudy.tags.map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-xs text-gray-500 dark:text-gray-400">
-                                #{tag}
-                            </span>
-                        ))}
+
+                    {/* Bottom Navigation */}
+                    <div className="max-w-3xl mx-auto mt-20 pt-10 border-t border-black/10 dark:border-white/10 flex justify-between items-center">
+                        {prevStudy ? (
+                             <button 
+                                onClick={() => navigateTo(prevStudy)}
+                                className="text-left group md:hidden"
+                             >
+                                <span className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Previous</span>
+                                <span className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center gap-1">
+                                    <ChevronLeft size={14} /> {prevStudy.title.substring(0, 15)}...
+                                </span>
+                             </button>
+                        ) : <div></div>}
+
+                        {nextStudy ? (
+                            <button 
+                                onClick={() => navigateTo(nextStudy)}
+                                className="group w-full md:w-auto text-right md:ml-auto pl-8"
+                            >
+                                <span className="block text-xs uppercase tracking-widest text-gray-400 mb-2 group-hover:text-purple-500 transition-colors">Next Case Study</span>
+                                <div className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center justify-end gap-3">
+                                    {nextStudy.title} <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                                </div>
+                            </button>
+                        ) : (
+                             <div className="text-right w-full">
+                                <span className="block text-xs uppercase tracking-widest text-gray-500 mb-2">End of Portfolio</span>
+                                <button onClick={() => setSelectedStudy(null)} className="text-lg font-bold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                                    Back to Overview
+                                </button>
+                             </div>
+                        )}
                     </div>
                 </div>
             </div>

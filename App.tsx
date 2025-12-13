@@ -7,7 +7,6 @@ import Skills from './components/Skills';
 import Experience from './components/Experience';
 import CaseStudies from './components/CaseStudies';
 import Contact from './components/Contact';
-import ProductDashboard from './components/ProductDashboard';
 import Preloader from './components/Preloader';
 import Marquee from './components/Marquee';
 import Cursor from './components/Cursor';
@@ -62,12 +61,7 @@ function App() {
                   </>
                 } />
                 <Route path="/work" element={<CaseStudies />} />
-                <Route path="/expertise" element={
-                    <>
-                        <Skills />
-                        <ProductDashboard />
-                    </>
-                } />
+                <Route path="/expertise" element={<Skills />} />
                 <Route path="/experience" element={<Experience />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />

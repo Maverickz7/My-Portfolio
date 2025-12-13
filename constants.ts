@@ -15,7 +15,7 @@ export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "tata-steel",
     company: "TATA Steel",
-    role: "Managr Sales",
+    role: "Manager Sales",
     date: "May 2024 - Present",
     location: "Chandigarh, India",
     description: [
@@ -171,35 +171,61 @@ export const CASE_STUDIES: CaseStudy[] = [
   }
 ];
 
+export const CERTIFICATIONS = [
+  {
+    name: "Certified Scrum Product Owner (CSPO)",
+    issuer: "Scrum Alliance",
+    year: "2023"
+  },
+  {
+    name: "Google Analytics Certification",
+    issuer: "Google",
+    year: "2022"
+  },
+  {
+    name: "Product Analytics Micro-Certification",
+    issuer: "Product School",
+    year: "2023"
+  }
+];
+
+export const HOBBIES = [
+  {
+    name: "Tech Blogging",
+    icon: "BookOpen",
+    desc: "Writing about emerging product trends and UX patterns."
+  },
+  {
+    name: "Strategic Gaming",
+    icon: "Gamepad2", 
+    desc: "Honing strategic thinking through Chess and RTS games."
+  },
+  {
+    name: "Trekking",
+    icon: "Mountain",
+    desc: "Exploring new paths and disconnecting to recharge."
+  },
+  {
+    name: "Photography",
+    icon: "Camera",
+    desc: "Capturing user contexts and perspectives through a lens."
+  }
+];
+
 export const PRODUCT_DASHBOARD: DashboardItem[] = [
   {
-    id: "db-discovery",
-    area: "Product Discovery",
-    application: "Mapped the 'Job to be Done' for farmers using Tata Agrico tools to drive the product refresh initiative."
+    id: "market-growth",
+    area: "Market Growth",
+    application: "15% Sales Uplift in North India via SKU Refresh"
   },
   {
-    id: "db-design",
-    area: "Product Design",
-    application: "Translated complex market data into clear visual communication designs for the Tinplate branding study."
+    id: "digital-channel",
+    area: "Digital Channel",
+    application: "30+ Retailers Onboarded to Tata Aashiyana"
   },
   {
-    id: "db-research",
-    area: "User Research",
-    application: "Conducted accessibility audits and user interviews to uncover friction points in digital interfaces."
-  },
-  {
-    id: "db-improvement",
-    area: "Product Improvement",
-    application: "Iterated on the shovel product line specifications based on real-world durability feedback from the field."
-  },
-  {
-    id: "db-strategy",
-    area: "Product Strategy",
-    application: "Formulated the 'digital-first' positioning for Veet to capture the Gen-Z demographic efficiently."
-  },
-  {
-    id: "db-roadmap",
-    area: "Product Roadmap",
-    application: "Planned the phased rollout of new agricultural SKUs, balancing supply chain constraints with seasonal demand."
+    id: "sku-efficiency",
+    area: "SKU Efficiency",
+    application: "95%+ Availability through Demand Planning"
   }
 ];

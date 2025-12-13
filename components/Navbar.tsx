@@ -13,6 +13,7 @@ const NAV_ITEMS = [
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     // Check initial theme preference
@@ -21,6 +22,12 @@ const Navbar: React.FC = () => {
     } else {
       setIsDark(false);
     }
+
+    const handleScroll = () => {
+        setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleTheme = () => {
@@ -35,33 +42,45 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <div className="fixed top-8 left-0 right-0 z-[60] flex justify-center px-6 pointer-events-none">
-        <nav className="pointer-events-auto flex items-center justify-between px-6 py-3 rounded-full bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-black/50 min-w-[320px] md:min-w-[550px] transition-colors duration-500">
+      <div className={`fixed top-0 left-0 right-0 z-[60] flex justify-center px-4 md:px-6 transition-all duration-300 ${scrolled ? 'pt-4' : 'pt-8'} pointer-events-none`}>
+        <nav className={`pointer-events-auto flex items-center justify-between px-6 py-3.5 rounded-full backdrop-blur-xl border shadow-lg transition-all duration-500 w-full md:w-auto max-w-5xl
+            ${scrolled 
+                ? 'bg-white/90 dark:bg-[#0a0a0a]/90 border-black/5 dark:border-white/10 shadow-black/5 dark:shadow-black/50' 
+                : 'bg-white/70 dark:bg-[#0a0a0a]/70 border-white/20 dark:border-white/5 shadow-none'
+            }
+        `}>
             
-            <Link to="/" className="text-lg font-bold tracking-widest text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-            DK<span className="text-purple-600 dark:text-purple-500">.</span>
+            {/* Logo - Flex Shrink 0 prevents crumpling */}
+            <Link to="/" className="flex-shrink-0 text-xl font-black tracking-tighter text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors mr-8 whitespace-nowrap">
+            DK<span className="text-purple-600 dark:text-purple-500 text-2xl">.</span>
             </Link>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
                 {/* Desktop Nav */}
-                <div className="hidden md:flex items-center space-x-6">
+                <div className="hidden md:flex items-center p-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
                 {NAV_ITEMS.map((item) => (
                     <NavLink
                     key={item.label}
                     to={item.path}
-                    className={({ isActive }) => `text-xs font-medium uppercase tracking-widest transition-all duration-300 ${isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
+                    className={({ isActive }) => `
+                        relative px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 
+                        ${isActive 
+                            ? 'bg-white dark:bg-zinc-800 text-black dark:text-white shadow-sm' 
+                            : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-gray-200'
+                        }
+                    `}
                     >
                     {item.label}
                     </NavLink>
                 ))}
                 </div>
 
-                <div className="w-px h-4 bg-gray-300 dark:bg-white/10 hidden md:block"></div>
+                <div className="w-px h-6 bg-gray-200 dark:bg-white/10 hidden md:block mx-2"></div>
 
                 {/* Theme Toggle */}
                 <button 
                   onClick={toggleTheme}
-                  className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+                  className="p-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/5 dark:hover:bg-white/10 transition-all flex-shrink-0"
                   aria-label="Toggle theme"
                 >
                   {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -69,11 +88,11 @@ const Navbar: React.FC = () => {
 
                 {/* Mobile Toggle */}
                 <button
-                className="md:hidden text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                className="md:hidden p-2 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex-shrink-0"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
                 >
-                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
         </nav>
@@ -90,7 +109,7 @@ const Navbar: React.FC = () => {
                 <NavLink
                 key={item.label}
                 to={item.path}
-                className={({ isActive }) => `text-3xl font-bold transition-colors tracking-tighter ${isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400'}`}
+                className={({ isActive }) => `text-4xl font-black tracking-tighter transition-colors ${isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400'}`}
                 onClick={() => setMobileMenuOpen(false)}
                 >
                 {item.label}
