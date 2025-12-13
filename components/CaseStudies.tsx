@@ -22,11 +22,11 @@ const CaseStudyCard: React.FC<{ study: CaseStudy; onClick: () => void; index: nu
             onMouseMove={handleMouseMove}
             className="spotlight-card group relative h-[400px] md:h-[500px] bg-white dark:bg-[#0a0a0a] border border-black/5 dark:border-white/5 rounded-2xl cursor-pointer overflow-hidden transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-purple-500/20 dark:hover:shadow-purple-900/30 z-10"
         >
-            {/* Image Placeholder / Abstract Gradient */}
-            <div className={`absolute inset-0 bg-gradient-to-br opacity-5 dark:opacity-20 transition-opacity duration-700 group-hover:opacity-10 dark:group-hover:opacity-40
-                ${index % 3 === 0 ? 'from-purple-600 to-transparent dark:from-purple-900 dark:to-black' : ''}
-                ${index % 3 === 1 ? 'from-blue-600 to-transparent dark:from-blue-900 dark:to-black' : ''}
-                ${index % 3 === 2 ? 'from-indigo-600 to-transparent dark:from-indigo-900 dark:to-black' : ''}
+            {/* Image Placeholder / Abstract Gradient - High Definition Blur */}
+            <div className={`absolute -inset-20 bg-gradient-to-br opacity-10 dark:opacity-20 transition-opacity duration-700 group-hover:opacity-20 dark:group-hover:opacity-40 blur-[80px]
+                ${index % 3 === 0 ? 'from-purple-500 via-purple-900/30 to-transparent' : ''}
+                ${index % 3 === 1 ? 'from-blue-500 via-blue-900/30 to-transparent' : ''}
+                ${index % 3 === 2 ? 'from-indigo-500 via-indigo-900/30 to-transparent' : ''}
             `}></div>
 
             {/* Optional Background Image Hint if available */}
@@ -37,7 +37,7 @@ const CaseStudyCard: React.FC<{ study: CaseStudy; onClick: () => void; index: nu
             <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-10">
                 <div className="flex justify-between items-start">
                     <span className="font-mono text-sm text-gray-400 dark:text-gray-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">0{index + 1}</span>
-                    <div className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm group-hover:border-purple-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                    <div className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-md group-hover:border-purple-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg">
                         <ArrowUpRight className="text-gray-900 dark:text-white w-5 h-5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors" />
                     </div>
                 </div>
@@ -277,7 +277,7 @@ const CaseStudies: React.FC = () => {
       {selectedStudy && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 animate-fade-in-up">
             <div 
-                className="absolute inset-0 bg-white/90 dark:bg-black/95 backdrop-blur-xl" 
+                className="absolute inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-3xl transition-all duration-500" 
                 onClick={() => setSelectedStudy(null)} 
             />
             

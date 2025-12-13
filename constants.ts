@@ -120,9 +120,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     approach: "Conducted field visits to understand farmer pain points. Iterated on handle grip and weight distribution based on direct feedback.",
     outcome: "Launched a refreshed lineup that saw a significant uplift in regional sales and positive sentiment in dealer networks.",
     images: [
-      "https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1625246333195-5840b65c0846?q=80&w=1000&auto=format&fit=crop"
+      "https://i.postimg.cc/66kgPy2L/tinplate1.webp",
+      "https://i.postimg.cc/59hTr6Yj/tinplate4.webp",
+      "https://i.postimg.cc/pVw4Sphf/tinplate2.webp"
     ]
   },
   {
@@ -134,8 +134,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     approach: "Analyzed search query data to identify content gaps. Developed a 'content brief' focusing on educational and empowering narratives.",
     outcome: "Delivered a comprehensive digital playbook adopted by the brand team for Q3/Q4 campaigns.",
     images: [
-      "https://drive.google.com/file/d/1A6l_LCfbBE_Eer5TgMs5UaNiGnqDjJW-/view?usp=sharing",
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop",
+      "https://i.postimg.cc/Pfg97PpS/veet1.webp",
+      "https://i.postimg.cc/QN2wzH9J/veet2.webp",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
     ]
   },
@@ -148,8 +148,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     approach: "Mapped the total addressable market (TAM) and conducted interviews with key packaging buyers.",
     outcome: "Identified 3 high-potential segments and recommended a sustainability-focused branding pivot.",
     images: [
-      "https://images.unsplash.com/photo-1530982011887-3cf112a44306?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+      "https://i.postimg.cc/SQB3PJ22/tsl1.webp",
+      "https://i.postimg.cc/dQbpfLk7/tsl2.webp",
       "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=1000&auto=format&fit=crop"
     ]
   },

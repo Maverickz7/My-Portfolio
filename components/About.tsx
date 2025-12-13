@@ -47,12 +47,12 @@ const About: React.FC = () => {
                     <div className="space-y-4">
                         <div>
                             <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">MBA (IB), IIFT Delhi</h4>
-                            <p className="text-gray-500 font-mono text-xs">2020 - 2022</p>
+                            <p className="text-gray-500 font-mono text-xs">2022 - 2024</p>
                         </div>
                         
                         <div>
                             <h4 className="text-base font-bold text-gray-900 dark:text-white mb-1">B.Tech (CSE), SRMIST Chennai</h4>
-                            <p className="text-gray-500 font-mono text-xs">2016 - 2020</p>
+                            <p className="text-gray-500 font-mono text-xs">2018 - 2022</p>
                         </div>
 
                         <div className="h-px w-full bg-gray-200 dark:bg-white/5"></div>
