@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
+import { NavLink, Link } from 'react-router-dom';
 
 const NAV_ITEMS = [
-  { label: 'Work', href: '#projects' },
-  { label: 'Expertise', href: '#skills' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work', path: '/work' },
+  { label: 'Expertise', path: '/expertise' },
+  { label: 'Experience', path: '/experience' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
 ];
 
 const Navbar: React.FC = () => {
@@ -34,23 +36,23 @@ const Navbar: React.FC = () => {
   return (
     <>
       <div className="fixed top-8 left-0 right-0 z-[60] flex justify-center px-6 pointer-events-none">
-        <nav className="pointer-events-auto flex items-center justify-between px-6 py-3 rounded-full bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-black/50 min-w-[320px] md:min-w-[500px] transition-colors duration-500">
+        <nav className="pointer-events-auto flex items-center justify-between px-6 py-3 rounded-full bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-black/50 min-w-[320px] md:min-w-[550px] transition-colors duration-500">
             
-            <a href="#home" className="text-lg font-bold tracking-widest text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+            <Link to="/" className="text-lg font-bold tracking-widest text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
             DK<span className="text-purple-600 dark:text-purple-500">.</span>
-            </a>
+            </Link>
 
             <div className="flex items-center gap-6">
                 {/* Desktop Nav */}
-                <div className="hidden md:flex items-center space-x-8">
+                <div className="hidden md:flex items-center space-x-6">
                 {NAV_ITEMS.map((item) => (
-                    <a
+                    <NavLink
                     key={item.label}
-                    href={item.href}
-                    className="text-xs font-medium uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300"
+                    to={item.path}
+                    className={({ isActive }) => `text-xs font-medium uppercase tracking-widest transition-all duration-300 ${isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
                     >
                     {item.label}
-                    </a>
+                    </NavLink>
                 ))}
                 </div>
 
@@ -85,14 +87,14 @@ const Navbar: React.FC = () => {
         >
             <div className="flex flex-col space-y-8 text-center">
             {NAV_ITEMS.map((item) => (
-                <a
+                <NavLink
                 key={item.label}
-                href={item.href}
-                className="text-3xl font-bold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors tracking-tighter"
+                to={item.path}
+                className={({ isActive }) => `text-3xl font-bold transition-colors tracking-tighter ${isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400'}`}
                 onClick={() => setMobileMenuOpen(false)}
                 >
                 {item.label}
-                </a>
+                </NavLink>
             ))}
             </div>
         </div>

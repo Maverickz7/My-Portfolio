@@ -1,60 +1,55 @@
 import { ExperienceItem, SkillItem, CaseStudy, DashboardItem } from './types';
 
 export const SOCIAL_LINKS = {
-  email: "devansh.kumar@example.com", // Placeholder based on instructions
-  linkedin: "https://linkedin.com/in/devanshkumar" // Placeholder
+  email: "devanshkumar04@gmail.com.com", // Placeholder based on instructions
+  linkedin: "https://www.linkedin.com/in/devansh-kumar-01335619b/" // Placeholder
 };
 
 export const HERO_CONTENT = {
   name: "Devansh Kumar",
   role: "Product-oriented Professional | Product Discovery · Strategy · UX-aware Execution",
-  bio: "MBA from IIFT with a strong foundation in product and category management at Tata Steel and digital strategy at Reckitt. I bridge the gap between market insights, user needs, and business execution through data-driven decision making and strategic product thinking."
+  bio: "A customer-obsessed, insights-driven professional with experience across consumer research, category analysis, digital adoption, GTM execution, and iterative product improvements. Strong ability to identify user pain points, validate insights, build product hypotheses, run experiments, and work cross-functionally with marketing, operations, sales, and design teams."
 };
 
 export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "tata-steel",
-    company: "Tata Steel (Agrico)",
-    role: "Management Trainee / Category Manager",
-    date: "2022 - Present",
-    location: "Kolkata, India",
+    company: "TATA Steel",
+    role: "Managr Sales",
+    date: "May 2024 - Present",
+    location: "Chandigarh, India",
     description: [
-      "Led product refresh for the Shovels category, achieving PMF and significant revenue uplift through iterative feedback loops.",
-      "Managed a diverse portfolio of agricultural tools, optimizing supply chain and go-to-market strategies.",
-      "Conducted extensive market research to identify product gaps and launch new SKUs tailored to regional farmer needs."
+      "I manage a ₹25 Cr portfolio across northern India, using on-ground insights and competitive benchmarking to improve product-market fit, refresh SKUs, and drive category growth. I’ve delivered a 15% uplift in 60 days by redesigning product attributes (weight, ergonomics, colour finish), improved SKU availability to 95%+, expanded distribution with 25+ new partners, and onboarded 30+ retailers to Tata Aashiyana for digital ordering. My role combines user research, GTM execution, demand analysis, and product communication refinement."
     ]
   },
   {
     id: "reckitt",
     company: "Reckitt",
-    role: "Summer Intern (Digital Strategy)",
-    date: "2021",
+    role: "Digital Marketing Intern",
+    date: "Nov 2023 - Jan 2024",
     location: "Gurgaon, India",
     description: [
-      "Developed a digital positioning strategy for Veet, analyzing search behaviors to optimize content briefs.",
-      "Created data-driven content frameworks to improve user engagement and brand recall across digital channels.",
-      "Collaborated with cross-functional teams to align digital narratives with broader brand goals."
+      "Improved digital engagement by 20% through insight-led content optimisation and competitive analysis across 15+ FMCG brands. Evaluated messaging gaps, consumer interaction patterns, and visual structure to strengthen campaign performance and brand communication."
     ]
   },
   {
     id: "tata-tinplate",
-    company: "The Tinplate Company of India",
-    role: "Project Intern",
-    date: "2021",
-    location: "Remote / Jamshedpur",
+    company: "TATA Steel",
+    role: "Marketing Intern",
+    date: "Apr 2023 - Jun 2023",
+    location: "New Delhi",
     description: [
-      "Conducted a comprehensive market opportunity & branding study for tinplate packaging in India.",
-      "Analyzed B2B customer segments to recommend value-proposition enhancements."
+      "Identified a ₹x Cr market opportunity through application-based research across packaging categories. Built a Tableau dashboard consolidating competitive intelligence, product parameters, and pricing insights to support GTM planning and customer communication."
     ]
   },
   {
     id: "bsnl",
     company: "BSNL",
-    role: "In-plant Trainee",
-    date: "2018",
-    location: "India",
+    role: "IT Intern",
+    date: "Oct 2020 - Nov 2020",
+    location: "Mumbai",
     description: [
-      "Gained foundational understanding of telecommunication infrastructure and network operations."
+      "Assisted BSNL’s technical operations team by diagnosing issues across 150+ IT products and improving communication between technicians and supervisors. Led process improvements in inventory and resource planning using Microsoft 365 and Python automations, resulting in a 25% reduction in response time and more efficient PC assembly and LAN management."
     ]
   }
 ];
@@ -107,12 +102,12 @@ export const SKILLS: SkillItem[] = [
 export const TOOLS = [
   "Tableau", 
   "Power BI", 
-  "Excel (Advanced)", 
-  "SQL", 
+  "MS Office (Advanced)", 
+  "Adobe Photoshop", 
   "Figma", 
   "Notion",
   "Jira (Expert)",
-  "Google Analytics",
+  "Canva",
   "Miro",
   "Python (Basic)"
 ];

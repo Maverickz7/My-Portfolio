@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { HERO_CONTENT } from '../constants';
 import TextScramble from './TextScramble';
 import Magnetic from './Magnetic';
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
@@ -34,15 +35,15 @@ const Hero: React.FC = () => {
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 opacity-0 animate-fade-in-up w-full sm:w-auto px-6" style={{ animationDelay: '0.8s' }}>
             <Magnetic>
-                <a
-                href="#projects"
+                <Link
+                to="/work"
                 className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-sm font-bold text-white dark:text-black bg-gray-900 dark:bg-white rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-purple-900 dark:hover:bg-purple-50 shadow-lg"
                 >
                 <span className="relative z-10 flex items-center gap-2">
                     View Work
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-800 to-gray-900 dark:from-purple-200 dark:to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </a>
+                </Link>
             </Magnetic>
             
             <Magnetic>
