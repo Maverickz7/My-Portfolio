@@ -11,7 +11,7 @@ const About: React.FC = () => {
           
           {/* Text Section (Left on Desktop, Top on Mobile) */}
           <div className="order-1 md:order-1 self-start pt-2">
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-8 tracking-tighter transition-colors leading-[0.9]">
+            <h2 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-8 tracking-tighter transition-colors leading-[0.9]">
               Defining the <br/><span className="text-purple-600 dark:text-purple-500">Why</span> and <span className="text-purple-600 dark:text-purple-500">How</span>.
             </h2>
             <div className="space-y-6 text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed font-light transition-colors">
@@ -47,12 +47,12 @@ const About: React.FC = () => {
                     <div className="space-y-4">
                         <div>
                             <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">MBA (IB), IIFT Delhi</h4>
-                            <p className="text-gray-500 font-mono text-xs">2022 - 2024</p>
+                            <p className="text-gray-500 font-mono text-xs">2020 - 2022</p>
                         </div>
                         
                         <div>
                             <h4 className="text-base font-bold text-gray-900 dark:text-white mb-1">B.Tech (CSE), SRMIST Chennai</h4>
-                            <p className="text-gray-500 font-mono text-xs">2018 - 2022</p>
+                            <p className="text-gray-500 font-mono text-xs">2016 - 2020</p>
                         </div>
 
                         <div className="h-px w-full bg-gray-200 dark:bg-white/5"></div>

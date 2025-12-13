@@ -316,7 +316,7 @@ const CaseStudies: React.FC = () => {
                     </span>
                     <button 
                         onClick={() => setSelectedStudy(null)}
-                        className="p-2 rounded-full bg-black/5 dark:bg-white/5 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/10 dark:hover:bg-white/10 transition-all"
+                        className="p-2 rounded-full bg-black/5 dark:bg-white/5 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/10 dark:hover:bg-white/10 transition-all active:scale-95"
                     >
                         <X size={20} />
                     </button>

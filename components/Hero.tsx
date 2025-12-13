@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
             <Magnetic>
                 <Link
                 to="/work"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-sm font-bold text-white dark:text-black bg-gray-900 dark:bg-white rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-purple-900 dark:hover:bg-purple-50 shadow-lg"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-sm font-bold text-white dark:text-black bg-gray-900 dark:bg-white rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 hover:bg-purple-900 dark:hover:bg-purple-50 shadow-lg"
                 >
                 <span className="relative z-10 flex items-center gap-2">
                     View Work
@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
                   e.preventDefault();
                   alert("Resume access granted.");
                 }}
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-sm font-bold text-gray-900 dark:text-white border border-gray-200 dark:border-white/20 rounded-full overflow-hidden transition-all hover:border-gray-900 dark:hover:border-white/50 hover:bg-black/5 dark:hover:bg-white/5"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-sm font-bold text-gray-900 dark:text-white border border-gray-200 dark:border-white/20 rounded-full overflow-hidden transition-all hover:border-gray-900 dark:hover:border-white/50 hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
                 >
                 <span className="relative z-10 flex items-center gap-2">
                     Download Resume

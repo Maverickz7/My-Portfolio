@@ -7,7 +7,7 @@ export const SOCIAL_LINKS = {
 
 export const HERO_CONTENT = {
   name: "Devansh Kumar",
-  role: "Product-oriented Professional | Product Discovery · Strategy · UX-aware Execution",
+  role: "Product-oriented Professional | Product Discovery · Strategy · GTM Execution",
   bio: "A customer-obsessed, insights-driven professional with experience across consumer research, category analysis, digital adoption, GTM execution, and iterative product improvements. Strong ability to identify user pain points, validate insights, build product hypotheses, run experiments, and work cross-functionally with marketing, operations, sales, and design teams."
 };
 
@@ -113,12 +113,12 @@ export const TOOLS = [
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "shovel-pmf",
-    title: "Agrico Shovel Product Refresh",
-    summary: "Achieving Product-Market Fit in a traditional agricultural category.",
-    tags: ["Product Discovery", "PMF", "GTM"],
-    problem: "The existing shovel line was losing market share due to outdated ergonomic designs and stiff competition from local players.",
-    approach: "Conducted field visits to understand farmer pain points. Iterated on handle grip and weight distribution based on direct feedback.",
-    outcome: "Launched a refreshed lineup that saw a significant uplift in regional sales and positive sentiment in dealer networks.",
+    title: "Branding Journey - TATA Tinplate",
+    summary: "Using customer insights to shape a more meaningful industrial brand identity.",
+    tags: ["Brand Naming", "Qualitative Analysis", "Customer Insights"],
+    problem: "The division lacked clarity on how customers perceived tinplate as a material.",
+    approach: "Led a brand-perception survey and synthesised functional and emotional insights to develop and evaluate brand name options.",
+    outcome: "Enabled insight-led brand naming decisions aligned with customer sentiment and heritage cues.",
     images: [
       "https://i.postimg.cc/66kgPy2L/tinplate1.webp",
       "https://i.postimg.cc/59hTr6Yj/tinplate4.webp",
@@ -127,44 +127,44 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "veet-digital",
-    title: "Veet Digital Positioning Strategy",
-    summary: "Optimizing content strategy through search behavior analysis.",
-    tags: ["Digital Strategy", "Content", "Data Analysis"],
-    problem: "Veet needed to increase engagement with younger demographics who were shifting to digital-first discovery.",
-    approach: "Analyzed search query data to identify content gaps. Developed a 'content brief' focusing on educational and empowering narratives.",
-    outcome: "Delivered a comprehensive digital playbook adopted by the brand team for Q3/Q4 campaigns.",
+    title: "Social Media Brief - Branding Team (Reckitt)",
+    summary: "Defining how a mass beauty brand can signal premium value through digital communication.",
+    tags: ["Digital Strategy", "Competitve Benchmarking", "Data Analysis"],
+    problem: "Veet needed to elevate its digital presence to appear more aspirational in a competitive beauty category.",
+    approach: "Benchmarked 12+ beauty and personal-care brands to identify premium content cues across tone, visuals, and storytelling, and translated insights into clear content pillars.",
+    outcome: "Delivered a strategic digital content brief to strengthen premium brand perception and digital desirability.",
     images: [
+      "https://i.postimg.cc/Bvw2s2Qm/123.jpg",
       "https://i.postimg.cc/Pfg97PpS/veet1.webp",
-      "https://i.postimg.cc/QN2wzH9J/veet2.webp",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+      "https://i.postimg.cc/QN2wzH9J/veet2.webp"
     ]
   },
   {
     id: "tinplate-market",
-    title: "Tinplate Market Opportunity",
-    summary: "B2B market sizing and branding study.",
-    tags: ["Market Research", "B2B", "Strategy"],
-    problem: "The Tinplate Company needed to understand the shifting landscape of sustainable packaging and identify new B2B segments.",
-    approach: "Mapped the total addressable market (TAM) and conducted interviews with key packaging buyers.",
-    outcome: "Identified 3 high-potential segments and recommended a sustainability-focused branding pivot.",
+    title: "Market Research for Upcoming Downstream Capacity - TATA Steel",
+    summary: "Uncovering growth opportunities through market and competitor analysis.",
+    tags: ["Market Sizing", "Data Visualization", "Competitive Analysis"],
+    problem: "The business sought new growth avenues beyond existing channels and applications.",
+    approach: "Analysed untapped channels and use-cases, supported by a Tableau dashboard mapping competitor presence and product performance.",
+    outcome: "Identified a ₹2687 Cr market opportunity and informed expansion and GTM strategy discussions.",
     images: [
+      "https://i.postimg.cc/8CnLDLPt/12.jpg",
       "https://i.postimg.cc/SQB3PJ22/tsl1.webp",
-      "https://i.postimg.cc/dQbpfLk7/tsl2.webp",
-      "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=1000&auto=format&fit=crop"
+      "https://i.postimg.cc/dQbpfLk7/tsl2.webp"
     ]
   },
   {
     id: "ux-accessibility",
-    title: "UX Accessibility Study",
-    summary: "Evaluating digital inclusivity for diverse user groups.",
-    tags: ["UX Research", "Accessibility", "Audit"],
-    problem: "Digital platforms often neglect users with visual or motor impairments, limiting reach and usability.",
-    approach: "Conducted an audit using WCAG guidelines and simulated user journeys for visually impaired users.",
-    outcome: "Proposed a set of high-impact UI changes to improve contrast, navigation, and screen reader compatibility.",
+    title: "Accessibility Audit - eCommerce Platforms",
+    summary: "Improving digital commerce experiences for visually impaired users.",
+    tags: ["UX Research", "Accessibility", "User Journey Mapping"],
+    problem: "Visually impaired users faced friction across key eCommerce journeys.",
+    approach: "Mapped end-to-end journeys across discovery, comparison, and checkout to identify systemic accessibility gaps and propose targeted UI/UX improvements.",
+    outcome: "Delivered actionable recommendations to improve usability, accessibility, and task completion efficiency.",
     images: [
-      "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1586717791821-3f44a5638d48?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop"
+      "https://i.postimg.cc/J44615R6/ux1.png",
+      "https://i.postimg.cc/CLLPFswm/ux2.png",
+      "https://i.postimg.cc/NffJgkQd/ux3.png"
     ]
   }
 ];

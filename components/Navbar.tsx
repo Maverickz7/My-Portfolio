@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
                 {/* Theme Toggle */}
                 <button 
                   onClick={toggleTheme}
-                  className="p-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/5 dark:hover:bg-white/10 transition-all flex-shrink-0"
+                  className="p-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-black/5 dark:hover:bg-white/10 transition-all flex-shrink-0 active:scale-90"
                   aria-label="Toggle theme"
                 >
                   {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
 
                 {/* Mobile Toggle */}
                 <button
-                className="md:hidden p-2 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex-shrink-0"
+                className="md:hidden p-2 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex-shrink-0 active:scale-90"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
                 >
@@ -100,16 +100,19 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu Overlay */}
         <div 
-            className={`fixed inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-xl z-[55] md:hidden transition-all duration-500 flex flex-col justify-center items-center ${
-                mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+            className={`fixed inset-0 bg-white dark:bg-[#020204] z-[55] md:hidden transition-all duration-500 flex flex-col justify-center items-center ${
+                mobileMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible pointer-events-none -translate-y-5'
             }`}
         >
-            <div className="flex flex-col space-y-8 text-center">
-            {NAV_ITEMS.map((item) => (
+            <div className="absolute inset-0 bg-purple-500/5 dark:bg-purple-900/10 pointer-events-none"></div>
+            
+            <div className="flex flex-col space-y-8 text-center relative z-10">
+            {NAV_ITEMS.map((item, index) => (
                 <NavLink
                 key={item.label}
                 to={item.path}
-                className={({ isActive }) => `text-4xl font-black tracking-tighter transition-colors ${isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400'}`}
+                className={({ isActive }) => `text-4xl font-black tracking-tighter transition-all duration-300 hover:scale-105 ${isActive ? 'text-purple-600 dark:text-purple-400 scale-105' : 'text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400'}`}
+                style={{ transitionDelay: `${index * 50}ms` }}
                 onClick={() => setMobileMenuOpen(false)}
                 >
                 {item.label}
