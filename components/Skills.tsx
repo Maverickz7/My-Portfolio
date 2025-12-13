@@ -89,7 +89,7 @@ const ToolCard: React.FC<{ toolString: string }> = ({ toolString }) => {
   return (
     <div 
       ref={cardRef}
-      className="spotlight-card group relative bg-white dark:bg-[#0a0a0a] border border-black/5 dark:border-white/5 rounded-xl p-6 transition-all duration-500 hover:border-purple-500/40 hover:bg-black/[0.03] dark:hover:bg-white/[0.03] overflow-hidden"
+      className="spotlight-card group relative bg-white dark:bg-[#0a0a0a] border border-purple-500/30 dark:border-purple-400/30 rounded-xl p-6 transition-all duration-500 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)] hover:bg-black/[0.03] dark:hover:bg-white/[0.03] overflow-hidden"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
@@ -166,7 +166,7 @@ const SkillCard: React.FC<{ skill: any }> = ({ skill }) => {
     return (
         <div 
             ref={cardRef}
-            className="spotlight-card glass-panel p-8 rounded-2xl group transition-all duration-500 relative hover:scale-[1.02] hover:border-purple-500/30 bg-white/50 dark:bg-[#0a0a0a]/50"
+            className="spotlight-card glass-panel p-8 rounded-2xl group transition-all duration-500 relative hover:scale-[1.02] border border-purple-500/30 dark:border-purple-400/30 hover:border-purple-500 bg-white/50 dark:bg-[#0a0a0a]/50"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}

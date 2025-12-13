@@ -155,10 +155,10 @@ const ImageGallery: React.FC<{ images: string[] }> = ({ images }) => {
                             alt={`Gallery ${idx + 1}`} 
                             loading="lazy"
                             onLoad={() => handleImageLoad(idx)}
-                            style={{ transition: 'transform 10s linear, opacity 0.5s ease-in-out' }}
-                            className={`w-full h-full object-cover ${idx === currentIndex ? 'scale-110' : 'scale-100'} ${loadedImages[idx] ? 'opacity-100' : 'opacity-0'}`} 
+                            style={{ transition: 'opacity 0.5s ease-in-out' }}
+                            className={`w-full h-full object-contain ${loadedImages[idx] ? 'opacity-100' : 'opacity-0'}`} 
                         />
-                         {/* Vignette */}
+                         {/* Vignette - Only visible if not filling completely, but keep for style consistency if desired, or remove if interfering with white bg images */}
                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 pointer-events-none"></div>
                     </div>
                 ))}
