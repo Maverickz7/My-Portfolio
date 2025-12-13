@@ -1,8 +1,8 @@
 import { ExperienceItem, SkillItem, CaseStudy, DashboardItem } from './types';
 
 export const SOCIAL_LINKS = {
-  email: "devanshkumar04@gmail.com.com", // Placeholder based on instructions
-  linkedin: "https://www.linkedin.com/in/devansh-kumar-01335619b/" // Placeholder
+  email: "devanshkumar04@gmail.com", 
+  linkedin: "https://www.linkedin.com/in/devansh-kumar-01335619b/" 
 };
 
 export const HERO_CONTENT = {
@@ -106,10 +106,8 @@ export const TOOLS = [
   "Adobe Photoshop", 
   "Figma", 
   "Notion",
-  "Jira (Expert)",
-  "Canva",
-  "Miro",
-  "Python (Basic)"
+  "Jira",
+  "Canva (Expert)"
 ];
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -136,7 +134,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     approach: "Analyzed search query data to identify content gaps. Developed a 'content brief' focusing on educational and empowering narratives.",
     outcome: "Delivered a comprehensive digital playbook adopted by the brand team for Q3/Q4 campaigns.",
     images: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+      "https://drive.google.com/file/d/1A6l_LCfbBE_Eer5TgMs5UaNiGnqDjJW-/view?usp=sharing",
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
     ]

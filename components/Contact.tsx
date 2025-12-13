@@ -17,17 +17,19 @@ const Contact: React.FC = () => {
              <a href={`mailto:${SOCIAL_LINKS.email}`} className="text-base sm:text-lg md:text-2xl text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors border-b border-gray-300 dark:border-white/20 hover:border-purple-600 dark:hover:border-purple-400 pb-2 break-all">
                 {SOCIAL_LINKS.email}
              </a>
-             <a href={SOCIAL_LINKS.linkedin} className="flex items-center gap-2 text-base sm:text-lg md:text-2xl text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors border-b border-gray-300 dark:border-white/20 hover:border-purple-600 dark:hover:border-purple-400 pb-2">
+             <a 
+                href={SOCIAL_LINKS.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-base sm:text-lg md:text-2xl text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors border-b border-gray-300 dark:border-white/20 hover:border-purple-600 dark:hover:border-purple-400 pb-2"
+             >
                 LinkedIn <ArrowRight className="w-4 h-4 md:w-6 md:h-6" />
              </a>
         </div>
 
-        <div className="mt-20 md:mt-32 flex flex-col md:flex-row justify-between items-center md:items-end border-t border-gray-200 dark:border-white/10 pt-8 text-gray-500 dark:text-gray-600 text-[10px] md:text-xs uppercase tracking-widest gap-4 transition-colors">
+        <div className="mt-20 md:mt-32 flex flex-col md:flex-row justify-center items-center border-t border-gray-200 dark:border-white/10 pt-8 text-gray-500 dark:text-gray-600 text-[10px] md:text-xs uppercase tracking-widest gap-4 transition-colors">
             <div>
                 &copy; {new Date().getFullYear()} DEVANSH KUMAR
-            </div>
-            <div className="opacity-50">
-                Design inspired by Phantom
             </div>
         </div>
       </div>

@@ -43,10 +43,10 @@ const Navbar: React.FC = () => {
   return (
     <>
       <div className={`fixed top-0 left-0 right-0 z-[60] flex justify-center px-4 md:px-6 transition-all duration-300 ${scrolled ? 'pt-4' : 'pt-8'} pointer-events-none`}>
-        <nav className={`pointer-events-auto flex items-center justify-between px-6 py-3.5 rounded-full backdrop-blur-xl border shadow-lg transition-all duration-500 w-full md:w-auto max-w-5xl
+        <nav className={`pointer-events-auto flex items-center justify-between px-6 py-3.5 rounded-full backdrop-blur-xl border transition-all duration-500 w-full md:w-auto max-w-5xl
             ${scrolled 
-                ? 'bg-white/90 dark:bg-[#0a0a0a]/90 border-black/5 dark:border-white/10 shadow-black/5 dark:shadow-black/50' 
-                : 'bg-white/70 dark:bg-[#0a0a0a]/70 border-white/20 dark:border-white/5 shadow-none'
+                ? 'bg-white/90 dark:bg-[#0a0a0a]/90 border-purple-500/30 dark:border-purple-400/30 shadow-[0_5px_30px_-5px_rgba(168,85,247,0.25)]' 
+                : 'bg-white/70 dark:bg-[#0a0a0a]/70 border-purple-500/20 dark:border-purple-400/20 shadow-[0_0_15px_rgba(168,85,247,0.1)]'
             }
         `}>
             

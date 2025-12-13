@@ -19,8 +19,19 @@ const About: React.FC = () => {
                 I operate at the intersection of <span className="text-gray-900 dark:text-white font-medium">business strategy</span> and <span className="text-gray-900 dark:text-white font-medium">user experience</span>. My journey began with a curiosity about how things are made, which evolved into a passion for understanding why they are made and for whom.
               </p>
               <p>
-                With a robust foundation from IIFT and hands-on experience at Tata Steel and Reckitt, I've learned that great products aren't just about features—they are about solving real problems with economic viability.
+                With a robust foundation from IIFT Delhi and hands-on experience at Tata Steel and Reckitt, I've learned that great products aren't just about features—they are about solving real problems with economic viability.
               </p>
+            </div>
+
+            {/* Availability Status */}
+            <div className="mt-8 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-emerald-500/5 border border-emerald-500/20 backdrop-blur-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                    Available for Product & Marketing roles
+                </span>
             </div>
           </div>
 
@@ -35,9 +46,15 @@ const About: React.FC = () => {
                     </h3>
                     <div className="space-y-4">
                         <div>
-                            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">MBA (IB), IIFT</h4>
+                            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">MBA (IB), IIFT Delhi</h4>
                             <p className="text-gray-500 font-mono text-xs">2020 - 2022</p>
                         </div>
+                        
+                        <div>
+                            <h4 className="text-base font-bold text-gray-900 dark:text-white mb-1">B.Tech (CSE), SRMIST Chennai</h4>
+                            <p className="text-gray-500 font-mono text-xs">2016 - 2020</p>
+                        </div>
+
                         <div className="h-px w-full bg-gray-200 dark:bg-white/5"></div>
                         <div>
                              <h4 className="text-[10px] font-bold text-gray-700 dark:text-gray-300 mb-1 uppercase tracking-wide">Focus Areas</h4>
