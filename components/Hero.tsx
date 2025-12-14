@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
             
             <Magnetic>
                 <a
-                href="https://drive.google.com/file/d/1qqo1goPhZmBdu0_fLSBlc5eKFjXQ3-9z/view?usp=sharing"
+                href="https://drive.google.com/file/d/1W1K5MAvJsMzFKBYnA7PwEaE5mBh3QIbM/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-sm font-bold text-gray-900 dark:text-white border border-gray-200 dark:border-white/20 rounded-full overflow-hidden transition-all hover:border-gray-900 dark:hover:border-white/50 hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
