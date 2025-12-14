@@ -104,7 +104,7 @@ export const TOOLS = [
   "Tableau", 
   "Power BI", 
   "MS Office (Advanced)", 
-  "Adobe Photoshop", 
+  "Photoshop", 
   "Figma", 
   "Notion",
   "Jira",
